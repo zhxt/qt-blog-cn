@@ -1,6 +1,6 @@
-**Qt项目需要新的下载服务镜像**
+Qt项目新的下载服务需要镜像
 
-原文链接：Tuukka Turunen-http://blog.qt.digia.com/blog/2013/03/28/qt-project-needs-mirrors-for-the-new-download-service/?utm_source=rss&utm_medium=rss&utm_campaign=qt-project-needs-mirrors-for-the-new-download-service
+原文链接：[Tuukka Turunen](https://blog.qt.digia.com/blog/author/tuturune/)-[Qt Project Needs Mirrors for the New Download Service](http://blog.qt.digia.com/blog/2013/03/28/qt-project-needs-mirrors-for-the-new-download-service/?utm_source=rss&utm_medium=rss&utm_campaign=qt-project-needs-mirrors-for-the-new-download-service)
 
 Qt项目目前使用内容分发网络(content delivery network)进行版本发布。我们已经改进了Qt开源版本包的
 发布，现在镜像设置已经可用了。在正式使用之前，我们需要获得更多镜像。

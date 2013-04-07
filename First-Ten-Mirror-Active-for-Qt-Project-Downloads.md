@@ -1,6 +1,6 @@
-**Qt项目下载前十个镜像已经生效**
+前十个Qt项目下载镜像已经生效
 
-原文链接：Tuukka Turunen - http://blog.qt.digia.com/blog/2013/04/05/first-ten-mirrors-active-for-qt-project-downloads/
+原文链接：[Tuukka Turunen](https://blog.qt.digia.com/blog/author/tuturune/)-[First Ten Mirrors Active for Qt Project Downloads](http://blog.qt.digia.com/blog/2013/04/05/first-ten-mirrors-active-for-qt-project-downloads/)
 
 我很高兴我们已经有来自三个州的十个镜像为新的Qt项目提供载服务,还有更多的在途中。
 使用新的基于MirrorBrain的设置，使成为一个Qt镜像变得非常容易-更重要的是它是无缝的用户可以从附近的镜像中受益。
