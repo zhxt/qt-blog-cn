@@ -2,7 +2,7 @@
 
 原文链接：[Kai Koehne](Kai Koehne) - [Using gcc’s 4.8.0 Address Sanitizer with Qt](http://blog.qt.digia.com/blog/2013/04/17/using-gccs-4-8-0-address-sanitizer-with-qt/)
 
-gcc 4.8的一个很酷的新特性是内建的“Address Sanitizer”：一个C/C++的内存错误检测器，它会告立即诉你当你例如访问了已经删除的内存。实际上这是一个来自Clang/LLVM的[Google项目](http://code.google.com/p/address-sanitizer/wiki/AddressSanitizer)，对于LLVM用户这可能不足为奇了，但对我来说不是<img>http://blog.qt.digia.com/wp-includes/images/smilies/icon_smile.gif</img>。由于网站上每天用的文档仍然有点少，我在这里讲些怎样更好的使用的要点，特别是在Qt环境中...
+gcc 4.8的一个很酷的新特性是内建的“Address Sanitizer”：一个C/C++的内存错误检测器，它会告立即诉你当你例如访问了已经删除的内存。实际上这是一个来自Clang/LLVM的[Google项目](http://code.google.com/p/address-sanitizer/wiki/AddressSanitizer)，对于LLVM用户这可能不足为奇了，但对我来说不是<img src='http://blog.qt.digia.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' />。由于网站上每天用的文档仍然有点少，我在这里讲些怎样更好的使用的要点，特别是在Qt环境中...
 
 **它是怎样工作的？**
 
