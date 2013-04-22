@@ -2,24 +2,24 @@
 
 原文链接：[Kai Koehne](Kai Koehne) - [Using gcc’s 4.8.0 Address Sanitizer with Qt](http://blog.qt.digia.com/blog/2013/04/17/using-gccs-4-8-0-address-sanitizer-with-qt/)
 
-gcc 4.8的一个很酷的新特性是内建的“Address Sanitizer”：一个C/C++的内存错误检测器，它会告立即诉您例如您访问了已经删除的内存。实际上这是一个来自Clang/LLVM的[Google项目](http://code.google.com/p/address-sanitizer/wiki/AddressSanitizer)，对于LLVM用户这可能不足为奇了，但对我来说不是<img src='http://blog.qt.digia.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' />。由于网站上每天用的文档仍然有点少，我在这里讲些怎样更好的使用的要点，特别是在Qt环境中...
+gcc 4.8的一个很酷的新特性是内建的“Address Sanitizer”：C/C++的内存错误检测器，例如，如果您访问了已经删除的内存，它会立刻报告。实际上这是一个来自Clang/LLVM的[Google项目](http://code.google.com/p/address-sanitizer/wiki/AddressSanitizer)，对于LLVM用户这可能不足为奇了，但对我来说不是<img src='http://blog.qt.digia.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' />。官方网站上的文档很令人生畏，我在这里讲些怎样更好的使用的要点，特别是在Qt环境中……
 
 **它是怎样工作的？**
 
-它基本上是重写了malloc和free，并且在访问之前做内存检查(详情请看[项目wiki](http://code.google.com/p/address-sanitizer/wiki/AddressSanitizerAlgorithm))。显然的它采用了一种非常高效的方式，因为相比于不做检查执行仅缓慢了2倍!谁知道呢，可能我们在某个时候在Qt-Project CI系统中开启它。
+它基本上是重写了malloc和free，并且在访问之前做内存检查(详情请看[项目wiki](http://code.google.com/p/address-sanitizer/wiki/AddressSanitizerAlgorithm))。很显然它采用了一种非常高效的方式，因为相比于不做检查执行仅缓慢了2倍！也许在未来某个时候，我们可以在Qt-Project CI系统中开启它，谁知道呢？
 
-警告这种方式目前只能工作在Linux和Mac上。MinGW很不幸。
+警告：这种方式目前只能工作在Linux和Mac上。MinGW很不幸。
 
 **怎样开启它?**
 
-由于它是编译器套件的一部分，很容易开启它:只要添加-fsanitize=address -fno-omit-frame-pointer到编译器的调用，并且添加-fsanitize=address到连接器的调用。无论怎样，要捕捉内存分配、释放或者被Qt访问的问题，您不仅要在您的程序中插入检测点，而且要在Qt中。针对Qt 5.2有一个实验性的补丁使之变得容易：
+由于它是编译器套件的一部分，开启它很容易：只要在编译器调用中添加-fsanitize=address -fno-omit-frame-pointer，在连接器调用中添加-fsanitize=address。无论怎样，要捕捉内存分配、释放或者被Qt访问的问题，在您的应用程序和Qt中，都需要加上新的编译参数。针对Qt 5.2有一个实验性的补丁使之变得容易：
 
 [https://codereview.qt-project.org/#change,43420](https://codereview.qt-project.org/#change,43420)
 
-因为是一个新特性，他被安排在dev分支(Qt 5.2)。但是您可以cherry-picking它到例如Qt 5.0。然后您可以配置Qt使用-address-sanitizer，在您的程序执行qmake CONFIG+=address_sanitizer。
+因为是一个新特性，它被安排在dev分支(Qt 5.2)。但是您可以cherry-picking它到例如Qt 5.0。然后您在配置Qt时使用-address-sanitizer，为您的程序执行qmake CONFIG+=address_sanitizer。
 
 如果您不想cherry-pick，您也可以手动为qmake设置命令行参数MAKE_CXXFLAGS、QMAKE_CFLAGS和QMAKE_LFLAGS:
-
+这篇是比较困难，分好几次译的。我再改下。
 <pre>
 $ qmake QMAKE_CXXFLAGS+="-fsanitize=address -fno-omit-frame-pointer" \
 QMAKE_CFLAGS+="-fsanitize=address -fno-omit-frame-pointer" \
@@ -28,7 +28,7 @@ QMAKE_LFLAGS+="-fsanitize=address"
 
 **怎样使用它？**
 
-只需要运行您的程序！如果您遇到了内存问题，它会终止，并且向您显示一个带模块名和地址的栈追踪。您需要一个单独的工具叫做[asan_symbolize.py ](https://llvm.org/svn/llvm-project/compiler-rt/trunk/lib/asan/scripts/asan_symbolize.py)来获取符号(symbols)，之后可能用到c++filt来de-mangle C++符号。
+只需要运行您的程序！如果您遇到了内存问题，它会终止程序的运行，并且向您显示一个带模块名和地址的栈追踪。您需要一个叫做[asan_symbolize.py](https://llvm.org/svn/llvm-project/compiler-rt/trunk/lib/asan/scripts/asan_symbolize.py)的工具来获取符号(symbol)，之后可能会用到c++filt来解析(de-mangle)C++符号。
 
 **演示！**
 
