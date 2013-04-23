@@ -14,7 +14,7 @@ Qt的WinRT移植和它的C++/CX使用
 Foo ^foo = ref new Foo();
 </pre>
 
-这个^从根本上是一个指针，但是提供了附加的信息：它是用在使用了引用计数的COM对象上，所以内存管理是自动的。“ref new”关键字意思是要创建一个“Ref class”(请看[Type System (C++/CX)](http://msdn.microsoft.com/en-us/library/windows/apps/hh755822)文档中的Ref classes and structs一节)，意思是他是通过引用(reference)复制它，通过引用计数(reference count)进行内存管理。因此上面那行代码没有什么神奇的；它只是告诉编译器这个对象的内存可以通过引用计数管理，用户不需要自己删除它。
+这个^从根本上是一个指针，但是提供了附加的信息：它是用在使用了引用计数的COM对象上，所以内存管理是自动的。“ref new”关键字意思是要创建一个“Ref class”(请看[Type System (C++/CX)](http://msdn.microsoft.com/en-us/library/windows/apps/hh755822)文档中的Ref classes and structs一节)，意思是通过引用(reference)复制它，通过引用计数(reference count)进行内存管理。因此上面那行代码没有什么神奇的；它只是告诉编译器这个对象的内存可以通过引用计数管理，用户不需要自己删除它。
 
 根本上正如C++/CX的名字告诉我们的那样－－它是C++语言的扩展。一切原生非托管代码都结束了，很像Qt的工作方式。一些人可能会第n次争论是否有必要再重新造轮子，因为很多“问题”事实上都在C++11中解决了(顺便说一下，在在上面的例子中auto foo同样也可以工作)，这是由Windows Runtime开发决定的。
 
@@ -54,7 +54,7 @@ if (FAILED(ActivateInstance(classId.Get(), &streamSocket)) {
 }
 </pre>
 
-不幸地，对于StreamSocket在期望一个ComPtr作为参数的情况下,这个便利的函数ActivateInstance失败了。为了避免这个失败，可以绕个远使用RoActivateInstance
+不幸地，对于StreamSocket在期望一个ComPtr作为参数的情况下，这个便利的函数ActivateInstance失败了。为了避免这个失败，可以绕个远使用RoActivateInstance
 
 <pre>
 IInspectable *inspectable = 0;
