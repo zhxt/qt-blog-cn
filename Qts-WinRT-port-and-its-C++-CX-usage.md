@@ -6,7 +6,7 @@ Qt的WinRT移植和它的C++/CX使用
 
 在Friedemann做了[关于Qt的Windows Runtime移植的最初介绍](http://blog.qt.digia.com/blog/2013/02/15/port-to-windows-runtime-kick-started/)之后，我想要做一些技术方面和我们移植方面的进一步介绍。
 
-当研究关于与C++有关的Windows Runtime开发(Windows 8商店程序和Windows runtime组件)，您会反复的发现**C++/CX**。Windows C++/CX是微软开发的C++/CX是C++语言的扩展，通过“尽可能的接近现代C++”[(Visual C++ Language Reference (C++/CX))](http://msdn.microsoft.com/en-us/library/windows/apps/hh699871.aspx)，使得为Windows Runtime开发更容易。在某些情况下，这些扩展看起来像C++/CLI结构，但是它们可能有其它的意义或者稍微不同的语法。
+当研究关于与C++有关的Windows Runtime开发(Windows 8商店程序和Windows runtime组件)，您会反复的发现**C++/CX**。Windows C++/CX是微软开发的C++语言的扩展，通过“尽可能的接近现代C++”[(Visual C++ Language Reference (C++/CX))](http://msdn.microsoft.com/en-us/library/windows/apps/hh699871.aspx)，使得为Windows Runtime开发更容易。在某些情况下，这些扩展看起来像C++/CLI结构，但是它们可能有其它的意义或者稍微不同的语法。
 
 第一个吸引眼球的是，C++/CX文档、例子或程序中会有这样的代码：
 
@@ -16,13 +16,13 @@ Foo ^foo = ref new Foo();
 
 这个^从根本上是一个指针，但是提供了附加的信息：它是用在使用了引用计数的COM对象上，所以内存管理是自动的。“ref new”关键字意思是要创建一个“Ref class”(请看[Type System (C++/CX)](http://msdn.microsoft.com/en-us/library/windows/apps/hh755822)文档中的Ref classes and structs一节)，意思是通过引用(reference)复制它，通过引用计数(reference count)进行内存管理。因此上面那行代码没有什么神奇的；它只是告诉编译器这个对象的内存可以通过引用计数管理，用户不需要自己删除它。
 
-根本上正如C++/CX的名字告诉我们的那样－－它是C++语言的扩展。一切原生非托管代码都结束了，很像Qt的工作方式。一些人可能会第n次争论是否有必要再重新造轮子，因为很多“问题”事实上都在C++11中解决了(顺便说一下，在在上面的例子中auto foo同样也可以工作)，这是由Windows Runtime开发决定的。
+基本上正如C++/CX的名字告诉我们的那样－－它是C++语言的扩展。作为本机非托管代码(native unmanaged code)，它和Qt的工作方式很像。一些人可能会第n次争论是否有必要再重新造轮子，因为很多“问题”事实上都在C++11中解决了(顺便说一下，在上面的例子中auto foo同样也可以工作)，这是由Windows Runtime开发决定的。
 
 ##C++/CX在Qt的WinRT移植中的使用##
 
-微软曾在不同的场合(其中包括在2012年Build大会上)表示，一切能用C++/CX完成的，不用扩展也可以实现，一切都结束了因为无论哪种情况都和原生代码一样。因此我们需要决定是要用新东西，还是继续手动内存管理的繁琐方式等。理论上没有什么阻止我们在WinRT移植中使用C++/CX，但是我们避免它们是有原因的。
+微软曾在不同的场合(其中包括在2012年Build大会上)表示，一切能用C++/CX完成的，不用扩展也可以实现， as everything ends up无论哪种情况都和本机代码一样。因此我们需要决定是要用新东西，还是继续手动内存管理的繁琐方式等。理论上没有什么阻止我们在WinRT移植中使用C++/CX，但是我们避免它们是有原因的。
 
-其中一个，这些扩展可能阻止想要帮助Winows Runtime移植的开发者深入的查看代码。如果您对这个开发环境没有以往的经验，使用新的结构和关键字(除了新代码之外)可能足够让您立即关掉编辑器了。虽然不使用CX的WinRT代码可能不是特别美观，没有非默认的东西能够掩盖它甚至更多。
+其中一个，这些扩展可能阻止想要帮助Winows Runtime移植的开发者深入的查看代码。如果您对这个开发环境没有以往的经验，使用新的结构和关键字(还有新代码)可能足够让您立即关掉编辑器了。虽然不使用CX的WinRT代码可能不是特别美观，没有非默认的东西能够掩盖它甚至更多(there are no non-default things which might obscure it even more)。
 
 另一个问题是Qt Creator的代码模型(目前还)不能处理这些扩展。例如，您不能使用任何^-指针的自动补全。当然了这些会在Qt Creator中修复，可以用的时候会告诉大家，但是此刻我们最先要做的是Qt移植以及基本的Qt Creator集成(构建、调试和开发)。
 
@@ -35,7 +35,7 @@ Foo ^foo = ref new Foo();
 
 ###命名空间###
 
-文档中的命名空间和类的CX使用一样，只是增加了“ABI”作为root namespace。所以对于StreamSocket，Windows::Networking::Sockets变成了ABI::Windows::Networking::Sockets。另外，您可能需要Microsoft::WRL(并且还有Microsoft::WRL::Wrappers)。WRL是“Windows Runtime C++ Template Library”的缩写，在Windows Runtime应用程序中用于直接COM访问－－但是当您忽略CX(例如创建实例)时，您仍需要它的功能。
+文档中的命名空间和类的CX使用一样，只是增加了“ABI”作为根命名空间(root namespace)。所以对于StreamSocket，Windows::Networking::Sockets变成了ABI::Windows::Networking::Sockets。另外，您可能需要Microsoft::WRL(并且还有Microsoft::WRL::Wrappers)。WRL是“Windows Runtime C++ Template Library”的缩写，在Windows Runtime应用程序中用于直接COM访问－－但是当您忽略CX(例如创建实例)时，您仍需要它的功能。
 
 ###创建实例###
 
