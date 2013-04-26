@@ -43,13 +43,15 @@ Qt库的最新发布版可以从Enginio控制面板找到。
 ###Qt例子###
 
 I. 在Qt Creator中选择 文件 > 新建文件或工程……创建新的“Qt Gui Application”。
+
 II. 在新工程的pro文件中添加：
 
 <pre>
 QT += network
 win32:CONFIG(debug, debug|release): LIBS += -lenginioclientd
 else: LIBS += -lenginioclient
- 
+</pre>
+
 III. 在MainWindow.cpp中：
 
 <pre>
@@ -81,6 +83,7 @@ queryOp->execute();
 ###QML例子###
 
 I. 在Qt Creator中选择 文件 > 新建文件或工程……创建新的“Qt Quick 2 Application (Built-in Elements)”
+
 II. 在main.qml中：
 
 <pre>
