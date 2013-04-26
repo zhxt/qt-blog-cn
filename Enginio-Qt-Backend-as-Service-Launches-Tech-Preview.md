@@ -1,0 +1,130 @@
+Enginio: Qt后端作为一个服务推出了技术预览版
+
+原文链接：[Makkonen Sami](http://blog.qt.digia.com/blog/author/samakkon/) - [Enginio: Qt Backend as a Service Launches Tech Preview](http://blog.qt.digia.com/blog/2013/04/25/enginio-qt-backend-as-a-service-launches-tech-preview/)
+
+您可能已经在2012年的Qt开发者大会上听说了Enginio，或者您可能偶然发现了我们的网站，[http://engin.io](http://engin.io/)。现在我们已经准备好正式开启我们的Enginio技术预览版的大门，欢迎您来测试。我们已经有一些早期尝鲜者，他们提供了宝贵的反馈意见，我们已经用于开发产品。
+
+###为什么用Enginio？###
+
+纵观现有的云解决方案，我们看到仍有改进的空间。它们有时很难开始使用，并且需要某些基础设施或平台的专业的知识，大多数情况下，它们没有Qt/C++应用程序接口。使用这些经验，我们已经为各种各样的程序构建后端，我们决定创建一个解决方案，它使用基于Qt的直观接口把应用程序和后端云存储连接起来。使用Enginio，开发人员能够专注于创建他们的应用使之视觉愉悦和performing，让Enginio来管理后端功能、扩展、安全和性能。
+
+我们的目标要建立Qt的座右铭－－使“开发者的生活更简单”，所以我们要做的是为开发者提供一个不复杂的、无压力的后端开发体验。所以我们开始创建一个解决方案，它容易使用并且为Qt应用开发增值，与此同时，把不费力的开发特质传递到其它平台。我们想要确保拥有Qt一个后端的增值好处提供给所有人。Enginio将商业的提供给开源和企业Qt用户。对使用商业许可进行开发的企业Qt用户，稍候会为他们提供一些附加的增值特性和功能。
+
+Enginio技术预览版支持：
+
+
+- 网页版控制面板(配置和管理您的后端的用户界面)
+- Schema-less数据存储(存储应用程序数据的地方)
+- 安全模型(控制哪些用户访问什么数据)
+- 支持文件(在云端保存小的或者大的文件)
+- 全文搜索(通过内容搜索存储的数据)
+- Qt/QML客户端库(创建应用程序的简便方式)
+
+
+###怎样开始？###
+
+1. 注册一个[Enginio](http://engin.io/)账户
+
+<img class="aligncenter  wp-image-35596" style="border: 1px solid black" src="http://blog.qt.digia.com/wp-content/uploads/2013/04/enginio_signup1-300x198.png" alt="" width="300" height="198" />
+<img src="http://blog.qt.digia.com/wp-content/uploads/2013/04/enginio_dashboard.png" >
+
+2. 设置您的新后端<img src="http://blog.qt.digia.com/wp-content/uploads/2013/04/enginio_dashboard.png" >
+
+<img class="aligncenter  wp-image-35597" style="border: 1px solid black" src="http://blog.qt.digia.com/wp-content/uploads/2013/04/enginio_setup-300x198.png" alt="" width="300" height="198" />
+
+3. 开发您的应用
+
+Qt库的最新发布版可以从Enginio控制面板找到。
+
+<img class="aligncenter size-medium wp-image-35603" style="border: 1px solid black" src="http://blog.qt.digia.com/wp-content/uploads/2013/04/enginio_dashboard-300x244.png" alt="" width="300" height="244" />
+
+共享库和QML扩展插件和平常一样使用‘qmake && make && make install’构建和安装。
+
+###Qt例子###
+
+I. 在Qt Creator中选择 文件 > 新建文件或工程……创建新的“Qt Gui Application”。
+II. 在新工程的pro文件中添加：
+
+<pre>
+QT += network
+win32:CONFIG(debug, debug|release): LIBS += -lenginioclientd
+else: LIBS += -lenginioclient
+</pre><img src="http://blog.qt.digia.com/wp-content/uploads/2013/04/enginio_dashboard.png" >
+
+III. 在MainWindow.cpp中：
+
+<pre>
+// Include Enginio headers
+#include <Enginio/Enginio>
+ 
+// Instantiate Enginio Client
+// Copy your backend ID and secret from Enginio dashboard
+const QString backendId("YOUR_OWN_BACKEND_ID");
+const QString backendSecret("YOUR_OWN_BACKEND_SECRET");
+EnginioClient *client = new EnginioClient(backendId, backendSecret);
+ 
+// Create new object to backend
+EnginioJsonObject banana("objects.fruits");
+banana.insert("name", QStringLiteral("Banana"));
+banana.insert("price", 1.59);
+EnginioObjectOperation *createOp = new EnginioObjectOperation(client);
+createOp->create(banana);
+createOp->execute(); // Initiates asynchronous operation
+ 
+// Fetch objects from backend to list model
+EnginioObjectModel *objectModel = new EnginioObjectModel();
+EnginioQueryOperation *queryOp = new EnginioQueryOperation(client);
+queryOp->setObjectType("objects.fruits");
+queryOp->setModel(objectModel);
+queryOp->execute();<img src="http://blog.qt.digia.com/wp-content/uploads/2013/04/enginio_dashboard.png" >
+</pre>
+
+###QML例子###
+
+I. 在Qt Creator中选择 文件 > 新建文件或工程……创建新的“Qt Quick 2 Application (Built-in Elements)”
+II. 在main.qml中：
+<img src="http://blog.qt.digia.com/wp-content/uploads/2013/04/enginio_dashboard.png" >
+<pre>
+import io.engin 1.0 as Enginio
+ 
+// Instantiate Enginio Client
+// Copy your backend ID and secret from Enginio dashboard
+Enginio.Client {
+    id: client
+    backendId: "YOUR_OWN_BACKEND_ID"
+    backendSecret: "YOUR_OWN_BACKEND_SECRET"
+}
+ 
+Enginio.ObjectModel {
+    id: objectModel
+}
+ 
+Enginio.QueryOperation {
+    id: queryOp
+    client: client
+    model: objectModel // Query results are added to model
+    objectTypes: ["objects.fruits"] // Get all fruit objects
+}
+ 
+Component.onCompleted: {
+    // Create new object to backend
+    var banana = {
+        objectType: "objects.fruits",
+        name: "Banana",
+        price: 1.59
+    };
+    var createOp = client.createObjectOperation();
+    createOp.create(banana);
+    createOp.execute();
+    createOp.finished.connect(function() {
+        // Fetch objects from backend to list model
+        queryOp.execute();
+    });
+}
+</pre>
+
+构建和您的互联程序就完成了。
+
+我们想邀请更多人来测试和提供反馈。然而请牢记这项服务仍在开发中并且您可能遇到一些漏洞、变更和终止。请到[http://engin.io](http://engin.io/)看一下吧。把您的想法告诉我们。
+
+您可以通过[mailus@engin.io](mailus@engin.io)联系到Enginio的开发团队。
