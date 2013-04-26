@@ -23,16 +23,16 @@ Enginio技术预览版支持：
 
 ###怎样开始？###
 
-1. 注册一个[Enginio](http://engin.io/)账户
+- 1. 注册一个[Enginio](http://engin.io/)账户
 
 <img class="aligncenter  wp-image-35596" style="border: 1px solid black" src="http://blog.qt.digia.com/wp-content/uploads/2013/04/enginio_signup1-300x198.png" alt="" width="300" height="198" />
-<img src="http://blog.qt.digia.com/wp-content/uploads/2013/04/enginio_dashboard.png" >
 
-2. 设置您的新后端<img src="http://blog.qt.digia.com/wp-content/uploads/2013/04/enginio_dashboard.png" >
+
+- 2. 设置您的新后端
 
 <img class="aligncenter  wp-image-35597" style="border: 1px solid black" src="http://blog.qt.digia.com/wp-content/uploads/2013/04/enginio_setup-300x198.png" alt="" width="300" height="198" />
 
-3. 开发您的应用
+- 3. 开发您的应用
 
 Qt库的最新发布版可以从Enginio控制面板找到。
 
@@ -49,8 +49,7 @@ II. 在新工程的pro文件中添加：
 QT += network
 win32:CONFIG(debug, debug|release): LIBS += -lenginioclientd
 else: LIBS += -lenginioclient
-</pre><img src="http://blog.qt.digia.com/wp-content/uploads/2013/04/enginio_dashboard.png" >
-
+ 
 III. 在MainWindow.cpp中：
 
 <pre>
@@ -76,14 +75,14 @@ EnginioObjectModel *objectModel = new EnginioObjectModel();
 EnginioQueryOperation *queryOp = new EnginioQueryOperation(client);
 queryOp->setObjectType("objects.fruits");
 queryOp->setModel(objectModel);
-queryOp->execute();<img src="http://blog.qt.digia.com/wp-content/uploads/2013/04/enginio_dashboard.png" >
+queryOp->execute();
 </pre>
 
 ###QML例子###
 
 I. 在Qt Creator中选择 文件 > 新建文件或工程……创建新的“Qt Quick 2 Application (Built-in Elements)”
 II. 在main.qml中：
-<img src="http://blog.qt.digia.com/wp-content/uploads/2013/04/enginio_dashboard.png" >
+
 <pre>
 import io.engin 1.0 as Enginio
  
