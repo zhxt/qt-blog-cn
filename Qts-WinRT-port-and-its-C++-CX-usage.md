@@ -20,9 +20,9 @@ Foo ^foo = ref new Foo();
 
 ##C++/CX在Qt的WinRT移植中的使用##
 
-微软曾在不同的场合(其中包括在2012年Build大会上)表示，一切能用C++/CX完成的，不用扩展也可以实现， as everything ends up无论哪种情况都和本机代码一样。因此我们需要决定是要用新东西，还是继续手动内存管理的繁琐方式等。理论上没有什么阻止我们在WinRT移植中使用C++/CX，但是我们避免它们是有原因的。
+微软曾在不同的场合(其中包括在2012年Build大会上)表示，一切能用C++/CX完成的，不用扩展也可以实现，两种情况最终都会变成一样的本地代码。因此我们需要决定是要用新东西，还是继续手动内存管理的繁琐方式等。理论上没有什么阻止我们在WinRT移植中使用C++/CX，但是我们尽量避免它们是有原因的。
 
-其中一个，这些扩展可能阻止想要帮助Winows Runtime移植的开发者深入的查看代码。如果您对这个开发环境没有以往的经验，使用新的结构和关键字(还有新代码)可能足够让您立即关掉编辑器了。虽然不使用CX的WinRT代码可能不是特别美观，没有非默认的东西能够掩盖它甚至更多(there are no non-default things which might obscure it even more)。
+其中一个，这些扩展可能阻止想要帮助Winows Runtime移植的开发者深入地查看代码。如果您对这个开发环境没有以往的经验，使用新的结构和关键字(还有新代码)可能足够让您立即关掉编辑器了。虽然不使用CX的WinRT代码可能不是特别美观，没有其它东西能像CX那样晦涩了。
 
 另一个问题是Qt Creator的代码模型(目前还)不能处理这些扩展。例如，您不能使用任何^-指针的自动补全。当然了这些会在Qt Creator中修复，可以用的时候会告诉大家，但是此刻我们最先要做的是Qt移植以及基本的Qt Creator集成(构建、调试和开发)。
 
@@ -31,21 +31,21 @@ Foo ^foo = ref new Foo();
 
 ##不使用C++/CX的问题和挑战##
 
-不使用C++/CX开发Windows Runtime代码带来的主要问题是严重的文档缺乏。虽然MSDN文档通常可以在某些方面改善，但几乎完全没有任何关于这个主题的内容。但是感谢Andrew Knight，他给了我一些初始概览，指导我如何使用这些，并且当我有任何更多问题时，都会给与帮助，我想我将掌握这些。为了帮助其他想要参与工作(并把所有的东西写下来)的人，我会在下面介绍一些基础的部分。
+不使用C++/CX开发Windows Runtime代码带来的主要问题是严重的文档缺乏。虽然MSDN文档对于某些领域已经有了很大的改进，但对于上述主题基本上什么都没有。在这里要感谢Andrew Knight，他在一开始指导我如何进行这方面的开发，并且在我有问题的时候，总能帮助我解决，我想我正在逐步掌握这些内容。为了帮助其他想要参与工作(并把所有的东西写下来)的人，我会在下面介绍一些基础的部分。
 
 ###命名空间###
 
-文档中的命名空间和类的CX使用一样，只是增加了“ABI”作为根命名空间(root namespace)。所以对于StreamSocket，Windows::Networking::Sockets变成了ABI::Windows::Networking::Sockets。另外，您可能需要Microsoft::WRL(并且还有Microsoft::WRL::Wrappers)。WRL是“Windows Runtime C++ Template Library”的缩写，在Windows Runtime应用程序中用于直接COM访问－－但是当您忽略CX(例如创建实例)时，您仍需要它的功能。
+文档中的命名空间和类的CX使用一样，只是增加了“ABI”作为根命名空间(root namespace)。所以对于[StreamSocket](http://msdn.microsoft.com/library/windows/apps/BR226882)，Windows::Networking::Sockets变成了ABI::Windows::Networking::Sockets。另外，您可能需要Microsoft::WRL(并且还有Microsoft::WRL::Wrappers)。WRL是“Windows Runtime C++ Template Library”的缩写，在Windows Runtime应用程序中用于直接COM访问－－但是当您忽略CX(例如创建实例)时，您仍需要它的功能。
 
 ###创建实例###
 
-当不使用CX时，大多数类不能被直接访问。取而代之，需要使用接口类(interface classes)。这些类名前面被标记了“I”，所以StreamSocket变成了IStreamSocket。因为这些类是抽象类。您需要创建一个字符串来表示类的classId。
+当不使用CX时，大多数类不能被直接访问。取而代之，需要使用接口类(interface class)。这些类名前面被标记了“I”，所以<pre>StreamSocket</pre>变成了<pre>IStreamSocket</pre>。因为这些类是抽象类。您需要创建一个字符串来表示类的classId。
 
 <pre>
 HStringReference classId(RuntimeClass_Windows_Networking_Sockets_StreamSockets);
 </pre>
 
-这些RuntimeClass_Windows……结构在相关的头文件中定义并且扩展为字符串，例如像“Windows.Networking.Sockets.StreamSocket”。对象实例化的方式依赖于这个类默认是否能被构造。如果能，ActivateInstance可以用来获得一个您寻找的类型的对象。
+这些RuntimeClass_Windows……结构在相关的头文件中定义并且扩展为字符串，例如像“Windows.Networking.Sockets.StreamSocket”。对象实例化的方式依赖于这个类默认是否能被构造。如果能，<pre>ActivateInstance</pre>可以用来获得一个您寻找的类型的对象。
 
 <pre>
 IStreamSocket *streamSocket = 0;
@@ -54,7 +54,7 @@ if (FAILED(ActivateInstance(classId.Get(), &streamSocket)) {
 }
 </pre>
 
-不幸地，对于StreamSocket在期望一个ComPtr作为参数的情况下，这个便利的函数ActivateInstance失败了。为了避免这个失败，可以绕个远使用RoActivateInstance
+不幸地是，对于StreamSocket在期望一个ComPtr作为参数的情况下，这个便利的函数ActivateInstance失败了。为了避免这个失败，可以绕个远使用RoActivateInstance
 
 <pre>
 IInspectable *inspectable = 0;
@@ -66,7 +66,7 @@ if (FAILED(inspectable->QueryInterface(IID_PPV_ARGS(&streamSocket)))) {
 }
 </pre>
 
-如果一个类默认是不可构造的，要创建一个实例，它必须使用工厂(factory)。这些工厂通过调用GetActivationFactory来获得，传递适当的类Id。一个像这样的类的例子是HostName：
+如果一个类默认是不可构造的，要创建一个实例，它必须使用工厂(factory)。这些工厂通过调用<pre>GetActivationFactory</pre>来获得，传递适当的类Id。一个像这样的类的例子是<pre>HostName：</pre>
 
 <pre>
 HostName:
@@ -82,12 +82,12 @@ hostnameFactory->CreateHostName(hostNameRef.Get(), &host);
 hostnameFactory->Release();
 </pre>
 
-习惯了Windows开发的人可能已经注意到了，所有的这些是基于COM的。意思是所有的这些已经存在很久了，并且被广泛的热爱。
+习惯了Windows开发的人可能已经注意到了，这些都是基于COM的。意思是所有的这些已经存在很久了，并且被广泛的使用。
 
 
 ###调用静态函数###
 
-对于含有静态函数的类，这些函数有一个额外的接口。这些接口用“Statics”标记在“基础”接口名的后面。并且也可以通过GetActivationFactory获得。例如一个包含GetEndpointPairsAsync的例子是IDatagramSocketStatics。
+对于含有静态函数的类，这些函数有一个额外的接口。这些接口用“Statics”标记在“基础”接口名的后面。并且也可以通过<pre>GetActivationFactory</pre>获得。例如一个包含<pre>GetEndpointPairsAsync<pre>的例子是<pre>IDatagramSocketStatics</pre>。
 
 <pre>
 GetEndpointPairsAsync for example.
@@ -104,7 +104,7 @@ datagramSocketStatics->Release();
 host->Release();
 </pre>
 
-endpointpairoperation为这个异步函数定义了回调，但是这个问题会在另一篇文章中介绍。这里有趣的部分是，怎样通过调用GetActivationFactory填充datagramSocketStatics指针和通过datagramSocketStatics->GetEndpointPairsAsync(……)实际调用静态函数。
+<pre>endpointpairoperation</pre>为这个异步函数定义了回调，但是这个问题会在另一篇文章中介绍。这里有趣的部分是，怎样通过调用<pre>GetActivationFactory</pre>填充<pre>datagramSocketStatics</pre>指针和通过<pre>datagramSocketStatics->GetEndpointPairsAsync(……)/<pre>实际调用静态函数。
 
 
 ###ComPtr###
@@ -120,6 +120,6 @@ ComPtr<IStreamSocket> streamSocket.
 当使用这些时，我们遇到了一些我们不能解释的内存访问错误(但没有进一步研究)，除此之外，Qt Creator不支持带“streamSocket->”的自动补全，但您一定会调用“streamSocket.Get()->”。因此我们决定不使用ComPtr，但继续使用“常规”指针。所有您必须要做的是记住当您完成使用这个指针时尽快调用“Release”。
 
 
-总之，我们尝试避免这些扩展尽管它可能会使代码不美观。如果您想做贡献和随意的使用这些，请随意的创建包含CX代码的补丁。如果您有进一步的问题和建议，请随时在注释中提出或者加入我们在freenode的#qt-winrt频道。
+总之，我们会尽量避免这些扩展，尽管它可能会使代码不美观。如果您想做贡献，欢迎提交包含CX代码的补丁。如果您有进一步的问题和建议，请随时在评论中提出或者加入我们在freenode的#qt-winrt频道。
 
 
