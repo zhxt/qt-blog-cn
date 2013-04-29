@@ -104,7 +104,7 @@ datagramSocketStatics->Release();
 host->Release();
 </pre>
 
-`endpointpairoperation`为这个异步函数定义了回调，但是这个问题会在另一篇文章中介绍。这里有趣的部分是，怎样通过调用`GetActivationFactory`填充`datagramSocketStatics`指针和通过`datagramSocketStatics->GetEndpointPairsAsync(……)`>实际调用静态函数。
+`endpointpairoperation`为这个异步函数定义了回调，但是这个问题会在另一篇文章中介绍。这里有趣的部分是，怎样通过调用`GetActivationFactory`填充`datagramSocketStatics`指针和通过`datagramSocketStatics->GetEndpointPairsAsync(……)`实际调用静态函数。
 
 
 ###ComPtr###
