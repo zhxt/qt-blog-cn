@@ -39,13 +39,13 @@ Foo ^foo = ref new Foo();
 
 ###创建实例###
 
-当不使用CX时，大多数类不能被直接访问。取而代之，需要使用接口类(interface class)。这些类名前面被标记了“I”，所以<pre>StreamSocket</pre>变成了<pre>IStreamSocket</pre>。因为这些类是抽象类。您需要创建一个字符串来表示类的classId。
+当不使用CX时，大多数类不能被直接访问。取而代之，需要使用接口类(interface class)。这些类名前面被标记了“I”，所以`StreamSocket`变成了`IStreamSocket`。因为这些类是抽象类。您需要创建一个字符串来表示类的classId。
 
 <pre>
 HStringReference classId(RuntimeClass_Windows_Networking_Sockets_StreamSockets);
 </pre>
 
-这些RuntimeClass_Windows……结构在相关的头文件中定义并且扩展为字符串，例如像“Windows.Networking.Sockets.StreamSocket”。对象实例化的方式依赖于这个类默认是否能被构造。如果能，<pre>ActivateInstance</pre>可以用来获得一个您寻找的类型的对象。
+这些RuntimeClass_Windows……结构在相关的头文件中定义并且扩展为字符串，例如像“Windows.Networking.Sockets.StreamSocket”。对象实例化的方式依赖于这个类默认是否能被构造。如果能`ActivateInstance`可以用来获得一个您寻找的类型的对象。
 
 <pre>
 IStreamSocket *streamSocket = 0;
@@ -66,7 +66,7 @@ if (FAILED(inspectable->QueryInterface(IID_PPV_ARGS(&streamSocket)))) {
 }
 </pre>
 
-如果一个类默认是不可构造的，要创建一个实例，它必须使用工厂(factory)。这些工厂通过调用<pre>GetActivationFactory</pre>来获得，传递适当的类Id。一个像这样的类的例子是<pre>HostName：</pre>
+如果一个类默认是不可构造的，要创建一个实例，它必须使用工厂(factory)。这些工厂通过调用`GetActivationFactory`来获得，传递适当的类Id。一个像这样的类的例子是`HostName：`
 
 <pre>
 HostName:
@@ -87,7 +87,7 @@ hostnameFactory->Release();
 
 ###调用静态函数###
 
-对于含有静态函数的类，这些函数有一个额外的接口。这些接口用“Statics”标记在“基础”接口名的后面。并且也可以通过<pre>GetActivationFactory</pre>获得。例如一个包含<pre>GetEndpointPairsAsync<pre>的例子是<pre>IDatagramSocketStatics</pre>。
+对于含有静态函数的类，这些函数有一个额外的接口。这些接口用“Statics”标记在“基础”接口名的后面。并且也可以通过`GetActivationFactory`获得。例如一个包含`GetEndpointPairsAsync`的例子是`IDatagramSocketStatics`。
 
 <pre>
 GetEndpointPairsAsync for example.
@@ -104,7 +104,7 @@ datagramSocketStatics->Release();
 host->Release();
 </pre>
 
-<pre>endpointpairoperation</pre>为这个异步函数定义了回调，但是这个问题会在另一篇文章中介绍。这里有趣的部分是，怎样通过调用<pre>GetActivationFactory</pre>填充<pre>datagramSocketStatics</pre>指针和通过<pre>datagramSocketStatics->GetEndpointPairsAsync(……)/<pre>实际调用静态函数。
+`endpointpairoperation`为这个异步函数定义了回调，但是这个问题会在另一篇文章中介绍。这里有趣的部分是，怎样通过调用`GetActivationFactory`填充`datagramSocketStatics`指针和通过`datagramSocketStatics->GetEndpointPairsAsync(……)`>实际调用静态函数。
 
 
 ###ComPtr###
