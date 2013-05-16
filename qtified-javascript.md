@@ -2,7 +2,7 @@ Qt化的JavaScript
 
 原文链接： [Jörg Bornemann](http://blog.qt.digia.com/blog/author/jbornema/) - [Qtified JavaScript](http://blog.qt.digia.com/blog/2013/05/16/qtified-javascript/)
 
-当写JavaScript代码时，不会花费太多时间直到我想念一些Qt的C++API中可用的函数。一个很简单的例子是**QList::contains**。在JavaScript中，像这样检查一个数组是否含有一个确定的元素：
+当写JavaScript代码时，用不了多久我就会想念一些Qt的C++API中可用的函数。一个很简单的例子是**QList::contains**。在JavaScript中，像这样检查一个数组是否含有一个确定的元素：
 
 <pre>
 var names = ["Egon", "Peter", "Raymond", "Waldo"];
@@ -10,7 +10,8 @@ if (names.indexOf("Waldo") !== -1)
     print("We've found him!");
 </pre>
 
-如果我们能够使用*cantains*方式，那就很好了。但是*Array*没有提供。
+如果我们能够使用*cantains*方式就好了。但是*Array*没有提供。
+
 幸运的是，JavaScript允许我们通过修改对应的原型对象为内建类型(inbuilt types)添加方法。
 
 <pre>
@@ -22,6 +23,7 @@ if (names.contains("Waldo"))
 </pre>
 
 耶！现在对于所有数组，我们都可以使用*contain*方法了。
+
 但是，当您尝试迭代数组的关键字时，有一个surprise lurking right around the corner(已知的陷阱/已知的埋伏？)。
 
 <pre>
