@@ -1,7 +1,8 @@
 Qt化的JavaScript
+
 原文链接： [Jörg Bornemann](http://blog.qt.digia.com/blog/author/jbornema/) - [Qtified JavaScript](http://blog.qt.digia.com/blog/2013/05/16/qtified-javascript/)
 
-当写JavaScript代码时，不会花费太多时间直到我想念一些Qt的C++API中可用的函数。一个很简单的例子是**QList::contains**。在JavaScript中，检查一个数组是否含有一个确定的元素像这样：
+当写JavaScript代码时，不会花费太多时间直到我想念一些Qt的C++API中可用的函数。一个很简单的例子是**QList::contains**。在JavaScript中，像这样检查一个数组是否含有一个确定的元素：
 
 <pre>
 var names = ["Egon", "Peter", "Raymond", "Waldo"];
@@ -26,7 +27,7 @@ if (names.contains("Waldo"))
 <pre>
 for (var i in names)
     print(i);
-<pre>
+</pre>
 
 将会打印：
 
