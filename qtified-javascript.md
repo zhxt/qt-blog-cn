@@ -11,7 +11,7 @@ if (names.indexOf("Waldo") !== -1)
 </pre>
 
 如果我们能够使用*cantains*方式，那就很好了。但是*Array*没有提供。
-幸运的是，JavaScript允许我们通过修改对应的原型对象为内置类型(inbuilt types)添加方法。
+幸运的是，JavaScript允许我们通过修改对应的原型对象为内建类型(inbuilt types)添加方法。
 
 <pre>
 Array.prototype.contains = function(e) {
@@ -51,7 +51,8 @@ Object.defineProperty(Array.prototype, "contains", {
 </pre>
 
 我们给*Object.defineProperty*传递我们想要增强的对象、要添加属性的名字和一个包含我们的新属性的标志描述对象。
-*contains*的值是我们显示直接传递给原型的函数。当使用**for (... in ...)**循环时，把描述对象中的*enumerable*属性设置为false会隐藏*contains*。
+
+*contains*的值是我们显式直接传递给原型的函数。当使用**for (... in ...)**循环时，把描述对象中的*enumerable*属性设置为false会隐藏*contains*。
 
 通过这种方式，我们可以为内建JavaScript类型*数组*和*字符串*创建像Qt一样友好的API。这可以放在一个.js文件中并且在QML/JS或者qbs项目文件中使用。
 
