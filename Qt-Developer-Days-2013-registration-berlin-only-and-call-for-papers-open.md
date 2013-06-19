@@ -1,9 +1,10 @@
 原文链接：[Katherine Barrios](http://blog.qt.digia.com/blog/author/kabarrios/) - [Qt Developer Days 2013 Registration (Berlin only) & Call for Papers Open](http://blog.qt.digia.com/blog/2013/06/18/qt-developer-days-2013-registration-berlin-only-and-call-for-papers-open/)
 
 
-2013年Qt开发者大会注册(目前只有柏林)和文章征集开放
+2013年Qt开发者大会注册(目前只有柏林)和文章征集开放了
 
 **十月7-9日：柏林**
+
 **十一月6-8日：旧金山**
 
 我很高兴的宣布2013年Qt开发者大会注册(只有柏林)和文章征集(两地)正式开放了。锁定您在柏林的会议席位并且在七月15日前注册可以免费获得一个Raspberry Pi。那是一个很好的夏日交易。
@@ -15,18 +16,18 @@
 为了确定我们能拥有迄今最好的Qt开发者大会，最吸引人的行程和会议。我们需要您的会议提议。如果您专长于分享您在以下任何领域的Qt知识，请您提交一个提议：
 
 
-- Qt on Android
-- Qt on iOS
-- Qt on BlackBerry 10
-- Qt on Sailfish
-- Qt on WinRT
+- Android版Qt
+- iOS版Qt
+- BlackBerry 10版Qt
+- Sailfish版Qt
+- WinRT版Qt
 - Qt 3D和OpenGL
-- Qt Quick / QML
+- Qt Quick/QML
 - QtWebKit
 - Qt和C++11
 - Qt平台抽象(Lighthouse)
 - Qt产品开发故事(经验、过程、挑战和差异——开源和商业项目都可以)
-- Qt新硬件平台(教程/指南、改进/开发、挑战)
+- 在新硬件平台上使用Qt(教程/指南、改进/开发、挑战)
 - 用户体验和设计指南
 - 开发方法
 - 当前和将来可能的Qt组件
@@ -36,7 +37,7 @@
 - 其他您认为Qt开发者会感兴趣的主题
 
 
-在[这里](http://www.qtdeveloperdays.com/call-for-papers-2013)了解更多要求和提交您的提议。
+在[这里](http://www.qtdeveloperdays.com/call-for-papers-2013)可以了解更多要求和提交您的提议。
 
 今年，我们在柏林Qt开发者大会中进行了一些混合并且引人了一个2天的“入门版”子活动。Qt开发者大会入门版将紧邻主活动举办，目的是让想学习Qt开发基础的Qt新手了解为什么要使用Qt进行应用开发，并且在Qt开发最佳练习中获得一些手把手的指导。更多柏林入门版详细信息即将推出。
 
