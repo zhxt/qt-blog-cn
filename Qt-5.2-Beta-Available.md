@@ -28,7 +28,7 @@ Qt Quick内部过去使用的以前的JavaScript引擎，V8，已经被全新的
 - [Qt Android Extras](http://doc-snapshot.qt-project.org/qt5-stable/qtandroidextras-index.html): 在Android上和原生代码集成
 -  通过[QTimeZone](http://doc-snapshot.qt-project.org/qt5-stable/qtimezone.html)和[QCollator](http://doc-snapshot.qt-project.org/qt5-stable/qcollator.html)改进了地区和时区的支持
 -  增强了多种Qt Widgets和一个新的[QKeySequenceEdit](http://doc-snapshot.qt-project.org/qt5-stable/qkeysequenceedit.html)类
--  QML[动画](http://doc-snapshot.qt-project.org/qt5-stable/qml-qtquick-animator.html)在主线程高负载是不能被阻塞
+-  QML[动画](http://doc-snapshot.qt-project.org/qt5-stable/qml-qtquick-animator.html)在主线程高负载不能被阻塞
 -  为[Qt Quick Controls](http://doc-snapshot.qt-project.org/qt5-stable/qtquickcontrols-index.html)增加了一些新特性和移动指定控制
 -  可访问性(Accessibility)完整支持所有桌面平台，基本支持Android。
 
@@ -39,5 +39,5 @@ Qt 5.2中所有新特性的更多细节列表，请查看Qt项目wiki上[新特�
 Qt 5.2将和新的Qt Creator发布版:Qt Creator 3.0一起发布。[Qt Creator 3.0测试版](http://blog.qt.digia.com/blog/2013/10/23/qt-creator-3-0-beta-released/)今天也发布了，它是Qt 5.2测试版二进制包的一部分。新的Qt Creator改进了对Android的支持特性，试验性支持iOS，清理了Creator插件API并且改进了对lldb的支持。
 
 
-
+Qt 5.2测试版有Windows、Mac和Linux版二进制安装器。开源用户可以从[Qt项目下载区](http://download.qt-project.org/development_releases/qt/5.2/5.2.0-beta1/)获取Qt 5.2测试版，现有Qt企业客户可以从[Qt企业客户门户](http://qt.digia.com/Log-in-Customer-Portal/)获取。
 
