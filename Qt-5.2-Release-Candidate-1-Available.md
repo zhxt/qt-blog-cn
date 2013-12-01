@@ -1,11 +1,11 @@
 
 Qt 5.2 Release Candidate 1 Available
 
-原文链接: [Qt 5.2 Release Candidate 1 Available](http://blog.qt.digia.com/blog/2013/11/29/qt-5-2-release-candidate-1-available/)— [Qt 5.2 Release Candidate 1 Available](http://blog.qt.digia.com/blog/2013/11/29/qt-5-2-release-candidate-1-available/)
+原文链接: [Qt 5.2 Release Candidate 1 Available](http://blog.qt.digia.com/blog/2013/11/29/qt-5-2-release-candidate-1-available/) - [Qt 5.2 Release Candidate 1 Available](http://blog.qt.digia.com/blog/2013/11/29/qt-5-2-release-candidate-1-available/)
 
 我很高兴地宣布Qt 5.2发布版候选1现在可用了。我们现在正在接近Qt 5.2最终版的最终阶段，它将在未来几周内发布。
 
-自Qt 5.2 Beta版发布以来，这是一个忙碌的月份，我们修复了大量的问题，感谢你们的反馈。一般来讲，Beta版的反馈是积极的，我们相信发布候选版会更好，当然如此。除了Qt 5.2的改变，在今天发布的包中还包含了一个Qt Creartor 3.0发布候选版。
+自Qt 5.2 Beta版发布以来，这是一个忙碌的月份，我们修复了大量的问题，感谢你们的反馈。一般来讲，Beta版的反馈是积极的，我们相信发布候选版会更好，当然如此。除了Qt 5.2的改变，在今天发布的包中还包含了一个Qt Creator 3.0发布候选版。
 
 对于还没有查看Qt 5.2带来什么的朋友们，请您参考[Qt 5.2 Beta 1的博文](http://blog.qt.digia.com/blog/2013/10/23/qt-5-2-beta-available/)，wiki文章列表[Qt 5.2的新特性](http://qt-project.org/wiki/New-Features-in-Qt-5.2)，或者[文档快照](http://doc-snapshot.qt-project.org/qt5-release/index.html)来获得更多细节。
 
