@@ -44,8 +44,7 @@ Qt 5.4也带来了很多新的特性和改进。焦点之一是围绕着图形�
 
 在Qt 5.4中有许多我们必须类出来的新东西。在继续之前，请看我们的Qt 5.4亮点视频。
 
-
-<embed src="http://player.youku.com/player.php/sid/XODQ3NTUwODg4/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+<p><iframe height=498 width=510 src="http://player.youku.com/embed/XODQ3NTUwODg4" frameborder=0 allowfullscreen></iframe></p>
 
 [搬运版视频链接](http://v.youku.com/v_show/id_XODQ3NTUwODg4.html)
 
@@ -78,16 +77,13 @@ Qt 5.4也带来了全新版本的Qt Creator，[Qt Creator 3.3](http://doc.qt.io/
 
 除了这些新特性之外，我们也增加了大量改进：
 
-* eAndroid Qt Multimedia插件更新。
-    * 嵌入式Android平台的Qt Multitmedia实现被重构了，形成了一个清晰独立的易于维护的插件。
-
+* eAndroid Qt Multimedia插件更新
+    *  嵌入式Android平台的Qt Multitmedia实现被重构了，形成了一个清晰独立的易于维护的插件
 * SD卡格式化向导，为了更简单的部署b2qt镜像
-    * 简单的向SD卡写入系统镜像向导
-    * 已经集成在Qt Creator中
-
+    *  简单的向SD卡写入系统镜像向导
+    *  已经集成在Qt Creator中
 * BYOS (Build Your Own Stack)改进
     * 为初始化和维护Yocto构建环境改进了脚本： 使用repo工具来维护不同设备的大量的资源库（meta repositories)
-
 * eLinux: i.MX6设备相机支持
     * Qt Quick应用中使用相机所需要的所有必要的GStreamer插件现在都集成在了相应的系统镜像中
     * 增加了MIPI相机支持
@@ -95,7 +91,7 @@ Qt 5.4也带来了全新版本的Qt Creator，[Qt Creator 3.3](http://doc.qt.io/
 在次版本中，我们也添加了新的硬件参考平台，包括低端配置的无GPU的Freescale Vybrid。Qt设备创建支持的完整参考硬件列表可以在这篇[文档](http://doc.qt.io/QtForDeviceCreation/qtee-supported-platforms.html)中找到。
 
 
-### 不使用OpenGL的Qt Quick
+### 没有使用OpenGL的Qt Quick
 
 对于我们的嵌入式用户，另一个很棒的新特性是新的[Qt Quick 2D Renderer](http://doc.qt.io/QtQuick2DRenderer/index.html)模块。这个新的商业附加组件在没有OpenGL硬件加速的嵌入式设备上使用Qt Quick。这个新的Qt Quick2DRenderer模块渲染多数的Qt Quick，通过像DirectFB或Direct2D使用纯软件光栅处理或2D硬件加速。这个模块支持除了OpenGL着色器(shaders)和粒子(particles)之外的所有Qt Quick。
 
